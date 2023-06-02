@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import SimpleMDE from "simplemde";
 export default {
   props: {
     text: {

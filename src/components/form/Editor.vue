@@ -14,6 +14,7 @@
  * https://github.com/sparksuite/simplemde-markdown-editor#toolbar-icons
  *
  * **/
+import SimpleMDE from "simplemde";
 export default {
   props: {
     placeholder: String,
