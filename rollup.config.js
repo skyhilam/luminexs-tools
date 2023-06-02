@@ -21,5 +21,5 @@ export default {
     commonjs(),
     // terser() 
   ],
-  external: ['vue', 'lodash'], // 声明 vue 为外部依赖，防止 vue 被打包进最后的文件
+  external: ['vue', 'lodash', 'simplemde'], // 声明 vue 为外部依赖，防止 vue 被打包进最后的文件
 };
