@@ -1,6 +1,6 @@
 {
   "name": "@luminexs/tools",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "commonly used tools in nuxt2 project",
   "sideEffects": false,
   "author": "skyhilam",
@@ -23,11 +23,14 @@
     "tailwindcss": "^3.3.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.22.1",
+    "@babel/preset-env": "^7.22.4",
+    "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-terser": "^0.4.3",
     "rollup": "^3.0.0",
     "rollup-plugin-css-only": "^4.3.0",
-    "@rollup/plugin-terser": "^0.4.3",
     "rollup-plugin-vue2": "^0.8.1",
     "vue-template-compiler": "^2.7.14"
   }

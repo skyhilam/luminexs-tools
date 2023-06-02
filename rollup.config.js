@@ -3,6 +3,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import vue from 'rollup-plugin-vue2';
 import css from 'rollup-plugin-css-only';
 import terser from '@rollup/plugin-terser';
+import { babel } from '@rollup/plugin-babel';
 
 export default {
   input: 'src/index.js', // 你的组件入口文件
@@ -19,7 +20,11 @@ export default {
       extensions: ['.mjs', '.js', '.jsx', '.json', '.node', '.vue'], // 在这里指定你需要处理的文件扩展名
     }),
     commonjs(),
-    // terser() 
+    terser() ,
+    babel({
+      babelHelpers: 'bundled',
+      presets: ['@babel/preset-env'],
+    }),
   ],
   external: ['vue', 'lodash', 'simplemde'], // 声明 vue 为外部依赖，防止 vue 被打包进最后的文件
 };
