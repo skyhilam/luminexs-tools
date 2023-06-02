@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import SimpleMDE from "simplemde";
 export default {
   props: {
     text: {
@@ -22,7 +21,7 @@ export default {
   
   methods: {
     toHTML() {
-      return SimpleMDE.prototype.markdown(this.text??'');
+      return SimpleMDE.prototype.markdown(this.text? this.text :'');
     }
   },
 
