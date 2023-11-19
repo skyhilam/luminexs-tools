@@ -3,7 +3,13 @@
     :class="size"
     class="border-2 border-dashed border-gray-300 rounded-md overflow-hidden relative"
   >
-    <div class="w-full h-full" v-show="!hidden && !preview">
+    <div
+      class="w-full h-full"
+      v-show="!hidden && !preview"
+      @dragover.prevent
+      @dragenter.prevent
+      @drop="selected"
+    >
       <button
         class="flex justify-center w-full h-full items-center"
         type="button"
@@ -68,9 +74,9 @@
 </template>
 
 <script>
-import { first } from "lodash";
+import {first} from "lodash";
 import vCropper from "./ImageCropper.vue";
-import { XIcon, SortAscendingIcon } from "@vue-hero-icons/outline";
+import {XIcon, SortAscendingIcon} from "@vue-hero-icons/outline";
 import PlaceholderVue from "./ImgPlaceholder.vue";
 
 export default {
@@ -151,10 +157,13 @@ export default {
     // 打開檔案選擇器
     async open() {
       if (this.inapp) {
-        const bytes = await window.flutter_inappwebview.callHandler("filepicker", {});
+        const bytes = await window.flutter_inappwebview.callHandler(
+          "filepicker",
+          {}
+        );
         if (!bytes) return;
         this.file = new File(
-          [new Blob([new Uint8Array(bytes)], { type: "image/jpeg" })],
+          [new Blob([new Uint8Array(bytes)], {type: "image/jpeg"})],
           "newimage.jpeg"
         );
         return;
@@ -164,17 +173,18 @@ export default {
       this.delay = true;
 
       this.uploader.click();
-      document.activeElement.blur()
+      document.activeElement.blur();
 
       // 500ms後才能再次點擊
       setTimeout(() => {
         this.delay = false;
       }, 500);
     },
-    
+
     // 選擇檔案
     selected(e) {
-      const file = first(e.target.files);
+      const uploadFile = e.target.files || e.dataTransfer.files;
+      const file = first(uploadFile);
       if (!file) return;
       this.file = file;
       if (!this.cropperable) this.submit(file);
@@ -209,7 +219,7 @@ export default {
       this.preview = URL.createObjectURL(file);
       this.cancel();
     },
-    
+
     // 置頂
     sort() {
       this.$emit("sort");
