@@ -81,7 +81,7 @@
               )
             "
           >
-            <div v-show="sreenWidth >= 640">
+            <div class="hidden sm:block">
               <date-picker
                 :valueType="valueType"
                 :disabled-date="disabledDate"
@@ -107,7 +107,7 @@
                 :disabled="disabled"
               />
             </div>
-            <div class="w-full relative" v-show="sreenWidth < 640">
+            <div class="w-full relative block sm:hidden">
               <template v-if="!range">
                 <input
                   type="text"
@@ -400,8 +400,6 @@ export default {
   },
   data() {
     return {
-      timer: null,
-      sreenWidth: null,
       show: false,
       showStartDate: false,
       showEndDate: false,
@@ -481,13 +479,6 @@ export default {
     },
     showPopup(index, value) {
       this[`${index}`] = value;
-    },
-    pageResize() {
-      if (this.timer) return;
-      this.timer = setTimeout(() => {
-        this.sreenWidth = window.innerWidth;
-        this.timer = null;
-      }, 100);
     },
     eyeDropper() {
       const {isSupported, open} = useEyeDropper();
@@ -573,9 +564,6 @@ export default {
     },
   },
   mounted() {
-    window.addEventListener("resize", this.pageResize);
-    this.sreenWidth = window.innerWidth;
-
     const el =
       this.$el.querySelector("input") ||
       this.$el.querySelector("select") ||
@@ -585,9 +573,6 @@ export default {
       each(this.$attrs, (value, attr) => {
         el.setAttribute(attr, value);
       });
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.pageResize);
   },
 };
 </script>
